@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "function.h"
+
+int search( int*inorder, int target, int start, int end){
+	for(int i = start; i<=end;i++){
+		if(inorder[i] == target) return i;
+	}
+}
+Node* buildTreehelp(int* inorder, int * postorder, int start, int end, int *run){
+	if(start>end) return NULL; 
+
+	Node* new = (Node*)malloc(sizeof(Node));
+	new->data = postorder[(*run)--];
+	
+	int idx = search(inorder,new->data,start, end);
+	new->right = buildTreehelp(inorder, postorder, idx+1, end, run);
+	new->left = buildTreehelp(inorder, postorder, start, idx-1, run );
+	return new;
+}	
+Node* buildTree(int* inorder, int * postorder, int start, int end){
+	int run = end;
+	return buildTreehelp(inorder, postorder, start, end, &run);
+}
+
+
+
+
+void showPreorder(Node* root){
+      if(root){
+		printf("%d ", root->data);
+		showPreorder(root->left);
+		showPreorder(root->right);
+	  }
+	  return;
+
+}

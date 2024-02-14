@@ -1,0 +1,42 @@
+void insert(Node**cursor, char ch ){
+	Node*cur = *head;
+	Node*new = (Node*)malloc(sizeof(Node));
+	new->next = cur->next->next;
+	new->prev = cur->next->prev;
+	cur->next->prev = new;
+	cur->next = new;
+}
+
+void deletion(Node**cursor){
+	Node*cur = cursor;
+	Node*temp = cur->next;
+cur ->next = temp->next;
+temp->next->prev = cur;
+free(temp);
+
+}
+
+void backspace(Node**cursor){
+	(*cursor) = (*cursor)->prev;
+	Node*new = *cursor;
+	deletion(&new);
+}
+
+void go_left(Node**cursor, int num1){
+	for(int i = 0; i<num1;i++){
+		(*cursor) = (*cursor)->prev;
+	}
+}
+void go_right(Node**cursor, int num1){
+		for(int i = 0; i<num1;i++){
+		(*cursor) = (*cursor)->next;
+	}
+}
+
+void go_home(Node**cursor){
+	(*cursor) = head;
+}
+
+void go_end(Node**cursor){
+	(*cursor) = head->prev;
+}

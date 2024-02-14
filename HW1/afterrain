@@ -1,0 +1,54 @@
+#include <stdio.h>
+#include <stdlib.h>
+void insert(Node**head, char * buf, int num1){
+	Node*cur = *head;
+	for(int i = 0 ; i<num1 && cur->next != NULL; i++){
+		cur = cur->next;
+	}
+	Node*new = (Node*)malloc(sizeof(Node));
+	strcpy(new->color, buf);
+	new->next = cur->next;
+	cur->next = new;
+
+}
+
+void erase1(Node**head, int num1){
+	Node*cur = *head; Node*tmp = cur;
+	if(cur->next == NULL) return;
+	for(int i = 0;i<num1 && cur->next != NULL;i++){
+		tmp = cur;
+		cur = cur->next;
+	}
+	tmp->next = cur->next;
+	free(cur);
+}
+
+void erase2(Node**head, char *buf){
+	Node*cur = *head; Node*tmp = cur;
+	while(cur!= NULL){
+		if(!strcmp(buf, cur->color)){
+			tmp->next = cur->next;
+			free(cur);
+			cur = tmp;
+		}
+		tmp = cur;
+		cur = cur->next;
+	}
+}
+
+void reverse(Node**head, int num1, int num2){
+	Node*cur = *head; Node*start = cur;
+	for(int i = 0; i<num1 && cur->next != NULL;i++){
+		start = cur;
+		cur = cur->next;
+	}
+	Node*follow = cur->next;
+	for(int i = num1; i<num2 && cur->next != NULL;i++){
+		cur->next = follow->next;
+		follow->next = start->next;
+		start->next = follow;
+		follow = cur->next;
+
+
+	}
+}

@@ -1,0 +1,46 @@
+
+
+void insert(Node**c, char intype){
+    struct _NODE*cursor = *c;
+    struct _NODE*newnode= (struct _NODE*) malloc(sizeof(struct _NODE));
+    newnode->ptr_to_next_node = cursor->ptr_to_next_node;
+    cursor->ptr_to_next_node->ptr_to_prev_node = newnode;
+    cursor->ptr_to_next_node = newnode;
+    newnode->ptr_to_prev_node = cursor;
+    newnode->character = intype;
+}
+
+void deletion(Node**c){ if(cursor->ptr_to_next_node == head) return;
+    Node*cursor = *c;
+    
+    Node*b = cursor->ptr_to_next_node;
+    cursor->ptr_to_next_node = b->ptr_to_next_node;
+    b->ptr_to_next_node->ptr_to_prev_node = cursor;
+    free(b);
+}
+
+void backspace(Node**c){ if(cursor == head) return;
+    (*c) = (*c)->ptr_to_prev_node;     Node*cursor = *c;
+   
+    deletion(&cursor);
+}
+
+void go_left(Node**c, int num){
+    for(int i = 0; i < num;i++){
+        (*c) = (*c)->ptr_to_prev_node;
+    }
+}
+
+void go_right(Node**c, int num){
+    for(int i = 0; i < num;i++){
+        (*c) = (*c)->ptr_to_next_node;
+    } 
+}
+
+void go_home(Node**c){
+    *c = head;
+}
+
+void go_end(Node**c){
+    *c = head->ptr_to_prev_node;
+}
